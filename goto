@@ -1,0 +1,183 @@
+#!/bin/bash
+#GOTO-BASH
+#A simple script to save Directory locations so as to make
+#moving between directory's easy. 
+#Also, contains a fuzzy directory finder to make searching for folder
+#names easier. 
+#A replacement for "cd".
+#By: Ankit Vadehra
+#Contact: ankitvad[at]gmail[dot]com
+#License: Standard MIT License.
+
+#Initialise the File to Save all Directory locations
+#Saving the Folder into the User folder.
+#This is necessary the first time and will
+#be omitted after that.
+
+#This is for bold and normal printing :
+bold=`tput bold`
+normal=`tput sgr0`
+
+#The saving directory.
+savefile=~/.GOTO/
+if [ ! -e "$savefile" ]; then
+	mkdir $savefile
+fi
+
+number_of_parameter="$#"
+first_parameter="$1"
+second_parameter="$2"
+#Cases depending on the number of Parmeters passed. 
+
+
+usage(){
+	echo -e "${bold}'goto'${normal} is a replacement for the ${bold}cd${normal} tool. It has better functionalities than cd, like a ${bold}FuzzyFinder${normal} and a ${bold}Directory Location Saver${normal}."
+	echo -e "Usage:\n"
+	echo -n "${bold}goto -h||-help||h||help"
+	echo -e "${normal} : Prints the Usage\n"  
+	echo -n "${bold}goto <location_address>"
+	echo -e "${normal} : Takes you to the ${bold}<location_address>\n"
+	echo -n "${bold}goto s||-s <shortcut>${normal}"
+	echo -e "${normal}   : Saves the Current Directory location as ${bold}<shortcut>\n"
+	echo -n "${bold}goto l||-l${normal}"
+	echo -e "              : Lists all the Bookmarks saved.\n"
+	echo -n "${bold}goto d||-d <shortcut>${normal}"
+	echo -e "   : Deletes the ${bold}<shortcut> ${normal}saved.\n"
+	echo -n "${bold}goto p||-p <shortcut>${normal}"
+	echo -e "   : Prints the GOTO directory for ${bold}<shortcut>\n"
+	echo -n "${bold}goto f||-f||find||-find <term>${normal}"
+	echo -e "     : Fuzzy-Finds all the file/folder matching REGEX in the working directory\n"
+
+}
+#To throw to Specific Functions
+one_parameter(){
+	#Passing all possible functions..
+	if [ "$first_parameter" = "-h" ] || [ "$first_parameter" = "-help" ] || [ "$first_parameter" = "help" ] || [ "$first_parameter" = "h" ] ; then
+		#Printing the Usage Help.
+		usage
+	#For Printing the List
+	elif [ "$first_parameter" = "l" ] || [ "$first_parameter" = "-l" ] ; then
+		if [ ! -e "$savefile" ]; then
+			echo -e "You have not added any directory yet."
+			mkdir $savefile
+			usage
+		elif [ ! "$(ls $savefile)" ]; then
+			echo -e "You have not added any directory yet."
+			usage
+		else
+			#Reverse the path. Delete everything after / and before .
+			for file in $savefile*.skt; do
+				x="$(echo "$file" | rev)"
+				y=${x%%/*}
+				x="$(echo -n ${y##*.} | rev)"
+				echo -n "$x" 
+				echo " :  $(cat $file)"
+				echo -e " "
+			done
+		fi
+	else 
+		#Change the Directory to target.
+		#here check if shortcut exists
+		if [ -e "$savefile$first_parameter.skt" ]; then
+			x="$savefile$first_parameter.skt"
+			y="$(cat $x)"
+			cd $y
+			#If not, just CD to that location.
+		elif [ -e "$first_parameter" ]; then
+			cd "$first_parameter"
+		else
+			echo -e "The Location/File/Folder $first_parameter does not exist."
+		fi
+	fi
+}
+
+two_parameter(){
+	#For saving.
+	if [ "$first_parameter" = "s" ] || [ "$first_parameter" = "-s" ] ; then
+		save_shortcut
+	elif [ "$first_parameter" = "p" ] || [ "$first_parameter" = "-p" ] ; then
+		print_shortcut
+	elif [ "$first_parameter" = "d" ] || [ "$first_parameter" = "-d" ] ; then
+		delete_shortcut
+	elif [ "$first_parameter" = "f" ] || [ "$first_parameter" = "-f" ] || [ "$first_parameter" = "find" ] || [ "$first_parameter" = "-find" ] ; then
+		working_dir_finder
+	fi
+}
+
+save_shortcut(){
+	if [ -e "$savefile$second_parameter.skt" ]; then
+		x="$savefile$second_parameter.skt"
+		echo -e "Existing Shortcut:"
+		echo -n "$second_parameter : "
+		echo -e "$(cat $x)"
+		echo -e "\nThis Shortcut allready exists. Chose another one or delete the existing one."
+	else
+		pwd > "$savefile$second_parameter.skt"
+		echo -e "Shortcut Created."
+	fi
+}
+
+print_shortcut(){
+	if [ ! -e "$savefile$second_parameter.skt" ]; then
+		echo -e "The Shortcut you're trying to find does not exist."
+		echo -e "Please see the Shortcut Links for a complete list."
+	else
+		x="$savefile$second_parameter.skt"
+		echo -n "$second_parameter : "
+		echo -e "$(cat $x)"
+	fi
+}
+
+delete_shortcut(){
+	if [ ! -e "$savefile$second_parameter.skt" ]; then
+		echo -e "The Shortcut you're trying to find does not exist."
+		echo -e "Please see the Shortcut Links for a complete list."
+	else
+		echo -e "Are you sure you want to delete: "
+		x="$savefile$second_parameter.skt"
+		echo -n "$second_parameter : "
+		echo -e "$(cat $x)"
+		echo -e "(yes/no)"
+		read choice
+		if [ "$choice" = "yes" ] || [ "$choice" = "y" ] ; then
+			rm "$x"
+			echo -e "Shortcut Deleted."
+		fi
+	fi
+}
+
+working_dir_finder(){
+	#This function is used for finding a particular file in the working directory.
+	term="$second_parameter"
+	regex_value="[A-Za-z0-9]*"
+	length=${#term}
+	x="$regex_value"
+	for (( i=0; i<$length; i++ )); do
+		y="$x${term:$i:1}"
+		x="$y$regex_value"
+	done 
+	regex_pattern="$x"
+	#echo -e "\nThe REGEX Pattern is : $regex_pattern"
+	#i just need: [A-Za-z0-9]* after each literal, or before. no idea.
+	ls -R $pwd | grep -i $regex_pattern
+}
+
+
+case "$number_of_parameter" in
+	# 0 parameters, ie. general tool definition printing.
+	0) usage
+		;;
+	#1-Parameter for: help, list or cd feauture.
+	1) one_parameter
+		;;
+	#2-Parameter for: save, print, delete, find and findall
+	#feauture.
+	2) two_parameter
+		;;
+	#More than 2 is wrong, and should throw a usage error.
+	*) usage
+		;;
+esac
+
+
+
