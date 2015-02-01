@@ -1,7 +1,8 @@
 # goto
-Linux Shell 'cd' replacement tool. cd on steroids, with fuzzy file finder and a directory bookmark saver.
-License: Standard MIT License.
+Linux Shell 'cd' replacement tool. Kindof like, cd on steroids, with fuzzy file finder and a directory bookmark saver.<br>
+License: Standard MIT License.<br>
 By: <a href="http://ankit-vadehra.co.nr/">Ankit Vadehra</a>
+<br>
 Detailed Description: <a href="http://ankitvad.github.io/blog/gotoacdreplacementtoolforlinux.html">goto | cd on steroids.</a>
 ===========
 <h3>Installation:</h3>
