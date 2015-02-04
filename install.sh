@@ -9,7 +9,7 @@ bold=`tput bold`
 normal=`tput sgr0`
 mkdir -p "$INSTALL"
 cp goto "$INSTALL"
-printf "export PATH=\"%s:$INSTALL\"\n" '$PATH' >> "$BASH_FILE"
+printf "PATH=\"%s:$INSTALL\"\n" '$PATH' >> "$BASH_FILE"
 echo 'alias goto=". goto"' >> "$BASH_FILE"
 echo -e "Added Stuff in .bashrc"
 . ~/.bashrc
