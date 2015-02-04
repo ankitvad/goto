@@ -16,6 +16,7 @@ if [ -f "$BASH_FILE" ]; then
 	echo 'export PATH=$PATH:~/.local/bin/' >> "$BASH_FILE"
 	echo 'alias goto=". goto"' >> "$BASH_FILE"
 	echo -e "Added Stuff in .bashrc"
+	. ~/.bashrc
 fi
 #Creating new bash_profile file, if doesnt exist. if exists, the appending
 #value. Some people on MAC don't use .bashrc.
@@ -23,6 +24,7 @@ if [ -f "$BASH_FILE2" ]; then
 	echo 'export PATH=$PATH:~/.local/bin/' >> "$BASH_FILE2"
 	echo 'alias goto=". goto"' >> "$BASH_FILE2"
 	echo -e "Added Stuff in .bash_profile"
+	. ~/.bash_profile
 fi	
-. ~/.bashrc
+
 exit 0
