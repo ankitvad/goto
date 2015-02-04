@@ -1,0 +1,58 @@
+.\" Manpage for goto.
+.\" Contact ankitvad[at]gmail[dot]com, to correct errors or typos.
+.TH man 8 "04 January 2014" "1.0" "goto man page"
+.SH NAME
+\fBgoto\fR \- Linux \fBcd\fR replacement tool with \fBDirectory Bookmark Saving\fR and \fBFuzzy-Finding\fR feautures.
+.SH SYNOPSIS
+\fBgoto\fR [\fB-h||-help||h||help\fR]
+.P
+\fBgoto\fR [\fBlocation_address\fR]
+.P
+\fBgoto\fR [\fBs||-s\fR] [\fBshortcut\fR]
+.P
+\fBgoto\fR [\fBl||-l\fR]
+.P
+\fBgoto\fR [\fBd||-d\fR] [\fBshortcut\fR]
+.P
+\fBgoto\fR [\fBp||-p\fR] [\fBshortcut\fR]
+.P
+\fBgoto\fR [\fBf||-f||find||-find\fR] [\fBterm\fR] 
+.SH DESCRIPTION
+\fBgoto\fR is a \fBcd\fR replacement tool for shell. It allows saving of directories as shortcuts/bookmarks which makes it easier to jump to the required destination. It also features a fuzzy-finder, which is able to match files in the working directory by REGEX matching. It makes traversing between directories a breeze.
+.SH OPTIONS
+.P
+\fB-h, -help, h, help\fR
+.RS 10
+Prints the Usage for \fBgoto\fR.
+.RE
+.P
+\fBlocation_address\fR
+.RS 10
+Checks whether \fBlocation_address\fR is a shortcut or not. If it is, then it goes to the directory location pointed by that shortcut. If a shortcut does not exist, then it replicates \fBcd\fR's behavious and switches to the location contained in \fBlocation_address\fR.
+.RE
+.P
+\fBl, -l\fR
+.RS 10
+Lists all the Bookmarks saved with the directories they point to.
+.RE
+.P
+\fBd, -d\fR [\fBshortcut\fR]
+.RS 10
+Deletes the bookmark passed in [\fBshortcut\fR].
+.RE
+.P
+\fBp, -p\fR [\fBshortcut\fR]
+.RS 10
+Prints the GOTO directory for [\fBshortcut\fR] passed.
+.RE
+.P
+\fBf, -f, find, -find\fR [\fBterm\fR]
+.RS 10
+Performs fuzzy-search for the \fBterm\fR passed through REGEX pattern matching.
+.RE
+.SH BUGS
+No known bugs. Program development takes place at: "\fBhttps://github.com/ankitvad/goto\fR" .
+.SH AUTHOR
+\fBAnkit Vadehra\fR \- (\fBankitvad\fR[\fBat\fR]\fBgmail\fR[\fBdot\fR]\fBcom\fR)
+.P
+\fBhttp://ankit-vadehra.co.nr/\fR

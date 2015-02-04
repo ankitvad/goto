@@ -25,6 +25,17 @@ if [ -f "$BASH_FILE2" ]; then
 	echo 'alias goto=". goto"' >> "$BASH_FILE2"
 	echo -e "Added Stuff in .bash_profile"
 	. ~/.bash_profile
-fi	
-
+fi
+echo -e "Do you wish to install the 'man' page for goto?"
+echo -e "root/sudo privilege might be required? (yes/no)"
+read choice
+if [ "$choice" = "yes" ] || [ "$choice" = "y" ] ; then
+	sudo cp "$(pwd)/man_page/goto.1" /usr/local/share/man/man1/
+	sudo mandb
+	echo -e " "
+	echo -e "Done. Added man page. To access: 'man goto'"	
+else
+	echo -e "man page not installed."
+	echo -e "To manually install copy '/man_page/goto.1' to the man page location."
+fi
 exit 0
