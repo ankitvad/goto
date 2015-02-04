@@ -149,7 +149,7 @@ delete_shortcut(){
 working_dir_finder(){
 	#This function is used for finding a particular file in the working directory.
 	term="$second_parameter"
-	regex_value="[A-Za-z0-9]*"
+	regex_value="[-_A-Za-z0-9]*"
 	length=${#term}
 	x="$regex_value"
 	for (( i=0; i<$length; i++ )); do
