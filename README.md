@@ -8,6 +8,12 @@ By: <a href="http://ankit-vadehra.co.nr/">Ankit Vadehra</a>
 <pre><code>wget -O goto "https://raw.githubusercontent.com/ankitvad/goto/master/goto"
 mv ~/.goto_tmp/goto ~/.local/bin
 </code></pre>
+To Add the 'man' page:
+<pre><code>~$ wget -O goto.1 "https://raw.githubusercontent.com/ankitvad/goto/master/man_page/goto.1"
+sudo cp goto.1 /usr/local/share/man/man1/
+sudo mandb</code></pre>
+That's about it. You can see the man page by: <code>man goto</code>
+<br>
 For New users, the normal installation will suffice. Look below for instructions.<br></b>
 Detailed Description: <a href="http://ankitvad.github.io/blog/gotoacdreplacementtoolforlinux.html">goto | cd on steroids.</a>
 ===========
