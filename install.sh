@@ -31,6 +31,7 @@ echo -e "root/sudo privilege might be required? (yes/no)"
 read choice
 if [ "$choice" = "yes" ] || [ "$choice" = "y" ] ; then
 	sudo cp "$(pwd)/man_page/goto.1" /usr/local/share/man/man1/
+	#This should work. Trying.
 	sudo cp "$(pwd)/man_page/goto.1" /usr/local/share/man/
 	#I was just notified by 'Drew Mills' on Google+ that the command
 	#'mandb' does not exist for a MAC system. Since, this file
