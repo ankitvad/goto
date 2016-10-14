@@ -1,7 +1,7 @@
 # goto
 Linux Shell 'cd' replacement tool. Kindof like, cd on steroids, with fuzzy file finder and a directory bookmark saver.<br>
 License: Standard MIT License.<br>
-By: <a href="http://ankitvad.ml/">Ankit Vadehra</a>
+By: <a href="https://cs.uwaterloo.ca/~avadehra/">Ankit Vadehra</a>
 <br>
 <h2><b>Update:</h2> Due to the awesome people on GitHub and Hackernews, i have come to know of many changes that had to be done. I'm adding a method to Update the script and add "man" page for <b>people who have already installed "goto"</b>.<br><br>
 <b>To Update goto:</b>
