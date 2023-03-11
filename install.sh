@@ -30,9 +30,9 @@ echo -e "Do you wish to install the 'man' page for goto?"
 echo -e "root/sudo privilege might be required? (yes/no)"
 read choice
 if [ "$choice" = "yes" ] || [ "$choice" = "y" ] ; then
-	sudo cp "$(pwd)/man_page/goto.1" /usr/local/share/man/man1/
+	sudo cp "$(pwd)/man_page/goto.1" /usr/share/man/man1/
 	#This should work. Trying.
-	sudo cp "$(pwd)/man_page/goto.1" /usr/local/share/man/
+	sudo cp "$(pwd)/man_page/goto.1" /usr/share/man/
 	#I was just notified by 'Drew Mills' on Google+ that the command
 	#'mandb' does not exist for a MAC system. Since, this file
 	#copies the man-page in the proper location anyways, it seems
